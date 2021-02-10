@@ -1,6 +1,6 @@
 # biol548-nb97
 Natalie Benoit's BIOL 548 repo
-Term 2 2022
+Term 2 2021
 
 This is the first class exercise for BIOL 548-O
 
