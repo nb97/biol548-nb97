@@ -3,7 +3,7 @@
 # 2.9.21
 
 
-#import data
+#imported data
 fish_data = read.csv("Gaeta_etal_CLC_data.csv")
 
 library(dplyr)
