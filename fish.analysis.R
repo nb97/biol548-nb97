@@ -4,7 +4,7 @@
 
 
 #imported data
-fish_data = read.csv("Gaeta_etal_CLC_data.csv")
+fish_data = read.csv("data/Gaeta_etal_CLC_data.csv")
 
 library(dplyr)
 
