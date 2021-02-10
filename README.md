@@ -2,7 +2,7 @@
 Natalie Benoit's BIOL 548 repo
 Term 2 2022
 
-This is the first class exercise for BIOL 548
+This is the first class exercise for BIOL 548-O
 
 The purpose of this activity was to practice interfacing with R studio and Github. 
 
