@@ -1,8 +1,11 @@
 #BIOL 458O R class 2
 #Author: Natalie Benoit 
-# 9.2.21
+# 2.9.21
 
 
 #import data
 fish_data = read.csv("Gaeta_etal_CLC_data.csv")
 
+library(dplyr)
+fish_data_cat = fish_data %>% 
+  mutate(length_cat = ifelse(length > 200, "big", "small"))
