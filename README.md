@@ -12,3 +12,4 @@ Instructions for this activity can be found here: https://github.com/mwpennell/u
 
 #Leisl's comment: Nice descriptions in the read me! Thanks for collaborating with me!!!
 
+#Avery: Thanks for the help! Just figuring this out
