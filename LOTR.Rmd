@@ -75,13 +75,16 @@ lotr_tidy %>%
 Using film-specific or gender-specific, untidy data frames as the input data.
 ```{r}
 gender_untidy %>% 
-  group_by(Film, Gender) %>% 
-   summarize(Words = sum(Words))
+  select("Elf", "Hobbit", "Man") %>%
+  summarise_all(funs(sum))
+   
 ```
 
 
 Exercise 3 - pivot wider 
 ```{r}
+lotr_tidy %>% 
+  pivot_wider(id_cols = c(Film, Gender), names_from = Words)
 
 ```
 
