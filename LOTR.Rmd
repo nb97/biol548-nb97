@@ -55,11 +55,33 @@ Exercise 2
 
 collect untidy data
 ```{r}
-gender_untidy <- bind_rows(fship, ttow, rking)
+gender_untidy <- bind_rows(Female, Male)
 str(gender_untidy)
 
 lotr_untidy
  write.csv(gender_untidy, file = file.path("data", "gender_untidy.csv"))
+
+```
+
+Write R code to compute the total number of words spoken by each race across the entire trilogy. Do it two ways:
+
+Using the lotr_tidy data frame as input.
+```{r}
+lotr_tidy %>% 
+  count(Gender, Race, wt = Words)
+
+```
+
+Using film-specific or gender-specific, untidy data frames as the input data.
+```{r}
+gender_untidy %>% 
+  group_by(Film, Gender) %>% 
+   summarize(Words = sum(Words))
+```
+
+
+Exercise 3 - pivot wider 
+```{r}
 
 ```
 
