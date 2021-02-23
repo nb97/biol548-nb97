@@ -10,17 +10,20 @@ library(dplyr)
 library(tidyverse)
 ```
 
-
+# download data
 ```{r cars}
 surveys <- read_csv("data/surveys.csv")
 ```
 
-## Including Plots
+# subsetting data, filtering, and mutating
+```{r}
+select(surveys, year, month, day)
+filter(surveys, species_id == "DS")
+mutate(surveys, hindfoot_length_cm = hindfoot_length / 10)
 
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
+# manupulations stored in a new variable 
+surveys_plus <- mutate(surveys,
+                       hindfoot_length_cm = hindfoot_length / 10)
 ```
 
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
