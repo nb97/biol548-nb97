@@ -11,9 +11,8 @@ library(tidyverse)
 ```
 
 
-
 ```{r cars}
-summary(cars)
+surveys <- read_csv("data/surveys.csv")
 ```
 
 ## Including Plots
