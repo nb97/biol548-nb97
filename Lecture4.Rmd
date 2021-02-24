@@ -26,4 +26,22 @@ surveys_plus <- mutate(surveys,
                        hindfoot_length_cm = hindfoot_length / 10)
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+#exercise 1
+#names & structure (1-2)
+```{r}
+names(shrub_volume_data)
+str(shrub_volume_data)
+```
+
+#selecting data, filtering, and creating a new tibble ()
+```{r}
+select(shrub_volume_data, length)
+select(shrub_volume_data, site, experiment)
+filter(shrub_volume_data, height > 5)
+
+shrub_data_w_vols <- mutate(shrub_volume_data,
+                       volume = length * width * height)
+```
+
+
+
