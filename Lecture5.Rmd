@@ -1,0 +1,151 @@
+---
+title: "lecture 5"
+author: "Natalie Benoit"
+date: "2/24/2021"
+output: html_document
+---
+
+# install packages
+```{r}
+library(tidyverse)
+library(nycflights13)
+library(PNWColors)
+```
+
+# looking at the data 
+```{r}
+head(airports)
+head(weather)
+head(planes)
+head(airlines)
+```
+
+### PART 1
+
+Imagine you wanted to draw (approximately) the route each plane flies from its origin to its destination. What variables would you need? What tables would you need to combine?
+# I would need to combine the plane and flight tables
+
+I forgot to draw the relationship between weather and airports. What is the relationship and how should it appear in the diagram?
+# It is related though weather, flights, and airports. The origiin is the same. 
+
+weather only contains information for the origin (NYC) airports. If it contained weather records for all airports in the USA, what additional relation would it define with flights?
+# Weather, flights, athrough destination to complete this relationship. 
+
+
+### PART 2
+Mutating joins
+```{r}
+flights2 <- flights %>% 
+  select(year:day, hour, origin, dest, tailnum, carrier)
+flights2
+
+flights2 %>%
+  select(-origin, -dest) %>% 
+  left_join(airlines, by = "carrier")
+
+flights2 %>%
+  select(-origin, -dest) %>% 
+  left_join(airlines, by = "carrier")
+
+```
+
+Understanding joins
+```{r}
+x <- tribble(
+  ~key, ~val_x,
+     1, "x1",
+     2, "x2",
+     3, "x3"
+)
+y <- tribble(
+  ~key, ~val_y,
+     1, "y1",
+     2, "y2",
+     4, "y3"
+)
+
+x %>% 
+  inner_join(y, by = "key")
+```
+
+
+13.4.6 (1-3)
+```{r}
+airports %>%
+  semi_join(flights, c("faa" = "dest")) %>%
+  ggplot(aes(lon, lat, color = tz)) +
+    borders("state") +
+    geom_point() +
+    coord_quickmap() 
+
+airport_org_dest <- airports %>%
+  select(faa, lat, lon)
+
+flights %>%
+  select(year:day, hour, origin, dest) %>%
+  left_join(
+    airport_org_dest,
+    by = c("origin" = "faa")
+  ) %>%
+  left_join(
+    airport_org_dest,
+    by = c("dest" = "faa")
+  )
+
+
+
+plane_cohorts <- inner_join(flights,
+  select(planes, tailnum, plane_year = year),
+  by = "tailnum") %>%
+  mutate(age = year - plane_year) %>%
+  filter(!is.na(age)) %>%
+  mutate(age = if_else(age > 21, 21L, age)) %>%
+  group_by(age) %>%
+  summarise(
+    dep_delay_mean = mean(dep_delay, na.rm = TRUE),
+    dep_delay_sd = sd(dep_delay, na.rm = TRUE),
+       n_arr_delay = sum(!is.na(arr_delay)),
+    n_dep_delay = sum(!is.na(dep_delay))
+  )
+# I chose 21 as the age as this indicates the plane was made in the 90s. 
+    
+```
+
+
+### PART 3
+13.5 (2 & 5)
+```{r}
+top_dest <- flights %>%
+  count(dest, sort = TRUE) %>%
+  head(10)
+top_dest
+
+flights %>% 
+  filter(dest %in% top_dest$dest)
+
+flights %>% 
+  semi_join(top_dest)
+
+flights %>%
+  anti_join(planes, by = "tailnum") %>%
+  count(tailnum, sort = TRUE)
+
+```
+
+
+```{r}
+library(fueleconomy)
+
+fueleconomy::vehicles %>%
+  semi_join(fueleconomy::common, by = c("make", "model"))
+
+
+anti_join(flights, airports, by = c("dest" = "faa"))
+# This tells me the destinations that do not align with each airport code. This could mean the airport destination list is not very extensive. 
+
+anti_join(airports, flights, by = c("faa" = "dest"))
+# This tells me the airport codes that did not align with a destination. As you can see,this is a much smaller table indicating that these airports were not as common destinations. 
+```
+
+
+
