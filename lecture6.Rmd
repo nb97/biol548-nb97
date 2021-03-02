@@ -4,27 +4,82 @@ author: "Natalie Benoit"
 date: "3/2/2021"
 output: html_document
 ---
-
+# Set up
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+library(gapminder)
+library(tidyverse)
+library(dplyr)
+library(stringr)
+gDat <- gapminder::gapminder
+str(gDat)
 ```
 
-## R Markdown
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
+# Part 1
+```{r}
+grep('\'', levels(gDat$country), value = TRUE)
 ```
 
-## Including Plots
+\': single quote. You don't need to escape single quote inside a double-quoted string, so we can also use "'" in the previous example.
+\": double quote. Similarly, double quotes can be used inside a single-quoted string, i.e. '"'.
+\n: newline.
+\r: carriage return.
+\t: tab character.
 
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
+cat() and print() to handle escape sequences differently, if you want to print a string out with these sequences interpreted, use cat().
+```{r}
+print("a\nb")
+cat("a\nb")
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+Quantifiers
+Quantifiers specify how many repetitions of the pattern.
+
+*: matches at least 0 times.
++: matches at least 1 times.
+?: matches at most 1 times.
+{n}: matches exactly n times.
+{n,}: matches at least n times.
+{n,m}: matches between n and m times.
+
+```{r}
+(strings <- c("a", "ab", "acb", "accb", "acccb", "accccb"))
+grep("ac*b", strings, value = TRUE)
+grep("ac+b", strings, value = TRUE)
+grep("ac?b", strings, value = TRUE)
+grep("ac{2}b", strings, value = TRUE)
+grep("ac{2,}b", strings, value = TRUE)
+grep("ac{2,3}b", strings, value = TRUE)
+```
+
+
+# Exercise 1: 
+line of code to find all countried with ee
+```{r}
+grep("e{2}", levels(gDat$country), value = TRUE)
+```
+
+# Part 2
+
+Position of pattern within the string
+^: matches the start of the string.
+$: matches the end of the string.
+\b: matches the empty string at either edge of a word. Don't confuse it with ^ $ which marks the edge of a string.
+\B: matches the empty string provided it is not at an edge of a word.
+
+```{r}
+(strings <- c("abcd", "cdab", "cabd", "c abd"))
+grep("ab", strings, value = TRUE)
+grep("^ab", strings, value = TRUE)
+grep("ab$", strings, value = TRUE)
+grep("\\bab", strings, value = TRUE)
+```
+
+# Exercise 2:
+write a code to find all files in main folder of repository
+```{r}
+path_towd <- getwd() # to get working directory
+dir(path_towd) #see file names
+dir(path_towd, pattern = ".R") # select for .R only -> does include .Rproj. Could I also do #.Rmd? 
+```
+
