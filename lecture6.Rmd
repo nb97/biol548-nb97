@@ -83,3 +83,90 @@ dir(path_towd) #see file names
 dir(path_towd, pattern = ".R") # select for .R only -> does include .Rproj. Could I also do #.Rmd? 
 ```
 
+# Part 3
+
+Operators
+
+.: matches any single character, as shown in the first example.
+[...]: a character list, matches any one of the characters inside the square brackets. We can also use - inside the brackets to specify a range of characters.
+[^...]: an inverted character list, similar to [...], but matches any characters except those inside the square brackets.
+\: suppress the special meaning of metacharacters in regular expression, i.e. $ * + . ? [ ] ^ { } | ( ) \, similar to its usage in escape sequences. Since \ itself needs to be escaped in R, we need to escape these metacharacters with double backslash like \\$.
+|: an "or" operator, matches patterns on either side of the |.
+(...): grouping in regular expressions. This allows you to retrieve the bits that matched various parts of your regular expression so you can alter them or use them for building up a new string. Each group can than be refer using \\N, with N being the No. of (...) used. This is called backreference.
+
+```{r}
+(strings <- c("^ab", "ab", "abc", "abd", "abe", "ab 12"))
+grep("ab.", strings, value = TRUE)
+grep("ab[c-e]", strings, value = TRUE)
+grep("ab[^c]", strings, value = TRUE)
+grep("^ab", strings, value = TRUE)
+grep("\\^ab", strings, value = TRUE)
+grep("abc|abd", strings, value = TRUE)
+gsub("(ab) 12", "\\1 34", strings)
+```
+
+#Exercise 3
+Write code to find countries in Gapminder with letter i or t, and ends with land, and replace land with LAND using backreference.
+```{r}
+grep("[it]", levels(gDat$country), value = TRUE) #contains i and t
+grep("land$", levels(gDat$country), value = TRUE) # ends with land
+
+#backreference to replace land with LAND
+grep("land[it]", levels(gDat$country), value = TRUE)
+grep("[it]|[land]", levels(gDat$country), value = TRUE)
+grep("[it]|land$|\\$1LAND", levels(gDat$country), value = TRUE)
+
+countries <- gsub("(.*[it].*)land$", "\\1LAND", levels(gDat$country)) 
+grep("LAND", countries, value = TRUE)
+```
+
+
+# Part 4
+
+Character classes 
+
+[:digit:] or \d: digits, 0 1 2 3 4 5 6 7 8 9, equivalent to [0-9].
+\D: non-digits, equivalent to [^0-9].
+[:lower:]: lower-case letters, equivalent to [a-z].
+[:upper:]: upper-case letters, equivalent to [A-Z].
+[:alpha:]: alphabetic characters, equivalent to [[:lower:][:upper:]] or [A-z].
+[:alnum:]: alphanumeric characters, equivalent to [[:alpha:][:digit:]] or [A-z0-9].
+\w: word characters, equivalent to [[:alnum:]_] or [A-z0-9_].
+\W: not word, equivalent to [^A-z0-9_].
+[:xdigit:]: hexadecimal digits (base 16), 0 1 2 3 4 5 6 7 8 9 A B C D E F a b c d e f, equivalent to [0-9A-Fa-f].
+[:blank:]: blank characters, i.e. space and tab.
+[:space:]: space characters: tab, newline, vertical tab, form feed, carriage return, space.
+\s: space, .
+\S: not space.
+[:punct:]: punctuation characters, ! " # $ % & ' ( ) * + , - . / : ; < = > ? @ [ \ ] ^ _ ` { | } ~.
+[:graph:]: graphical (human readable) characters: equivalent to [[:alnum:][:punct:]].
+[:print:]: printable characters, equivalent to [[:alnum:][:punct:]\\s].
+[:cntrl:]: control characters, like \n or \r, [\x00-\x1F\x7F].
+Note:
+[:...:] has to be used inside square brackets, e.g. [[:digit:]].
+\ itself is a special character that needs escape, e.g. \\d. Do not confuse these regular expressions with R escape sequences such as \t.
+
+General modes for patterns 
+POSIX (defaut) or Perl 
+```{r}
+(strings <- c("Axbc", "A.bc"))
+pattern <- "A.b"
+grep(pattern, strings, value = TRUE)
+grep(pattern, strings, value = TRUE, fixed = TRUE)
+```
+
+```{r}
+pattern <- "a.b"
+grep(pattern, strings, value = TRUE)
+grep(pattern, strings, value = TRUE, ignore.case = TRUE)
+```
+
+
+#Exercise 4
+find continents in Gapminder with letter o in it
+```{r}
+grep("o{1}", levels(gDat$continent), value = TRUE, ignore.case = T)
+```
+
+
+
