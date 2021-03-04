@@ -1,0 +1,45 @@
+---
+title: "leture7"
+author: "Natalie Benoit"
+date: "3/4/2021"
+output: html_document
+---
+
+Function basics
+```{r}
+#this won't do anything
+function_name <- function(inputs) {
+  output_value <- do_something(inputs)
+  return(output_value)
+}
+
+#creating a function wont run it
+calc_shrub_vol <- function(length, width, height) {
+  volume <- length * width * height
+  return(volume)
+}
+
+#call on arguments 
+calc_shrub_vol(0.8, 1.6, 2.0)
+# and store 
+shrub_vol <- calc_shrub_vol(0.8, 1.6, 2.0)
+```
+
+
+## Exercise 1
+Write a function that converts pounds to grams (there are 453.592 grams in one pound). It should take a value in pounds as the input and return the equivalent value in grams (i.e., the number of pounds times 453.592). Use that function to calculate how many grams there are in 3.75 pounds.
+```{r}
+pound_to_gram <- function(pound) {
+  weight_g <- pound * 453.592
+  return(weight_g)
+}
+
+pound_to_gram(3.75)
+```
+
+
+```{r}
+
+```
+
+
