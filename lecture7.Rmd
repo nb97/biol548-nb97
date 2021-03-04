@@ -67,4 +67,40 @@ get_mass_from_length <- function(length,a, b){
 get_mass_from_length(26)
 ```
 
+Default arguments
+Defaults can be set for common inputs
+```{r}
+calc_shrub_vol <- function(length = 1, width = 1, height = 1) {
+  volume <- length * width * height
+  return(volume)
+}
+
+calc_shrub_vol()
+calc_shrub_vol(width = 2)
+calc_shrub_vol(0.8, 1.6, 2.0)
+calc_shrub_vol(height = 2.0, length = 0.8, width = 1.6)
+```
+
+
+# Exercise 3
+Use this function to estimate the mass of a Sauropoda (a = 214.44, b = 1.46) that is 22 m long (by setting a and b when calling the function).
+Use this function to estimate the mass of a dinosaur from an unknown taxonomic group that is 16m long (by not setting a and b so that the default values are used).
+```{r}
+get_mass_from_length_defaults <- function(length, a = 39.9, b = 2.6){
+  mass_default <-length * 214.44 * 1.46
+  return(mass_default)
+}
+get_mass_from_length(22)
+
+get_mass_from_length_defaults <- function(length, a = 39.9, b = 2.6){
+  mass_default <-length * a * b
+  return(mass_default)
+}
+get_mass_from_length(16)
+
+#It is more useful passing them than having them fixed so they can be applied to many taxonomic groups. 
+```
+```
+
+
 
