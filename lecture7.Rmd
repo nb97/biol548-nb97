@@ -5,6 +5,13 @@ date: "3/4/2021"
 output: html_document
 ---
 
+Install
+```{r}
+library(dplyr)
+library(tidyverse)
+library(praise)
+```
+
 Function basics
 ```{r}
 #this won't do anything
@@ -38,8 +45,26 @@ pound_to_gram(3.75)
 ```
 
 
+Exercise 2
+In your file lecture7-exercises.R, add a comment to this function so that you know what it does.
+Use this function to print out the mass of a Spinosaurus that is 16 m long based on its reassembled skeleton.
+Create a new version of this function called get_mass_from_length() that estimates the mass of an organism in kg based on its length in meters by taking length, a, and b as parameters. This lets us pass the function all 3 values that it needs to estimate a mass as parameters, which makes it much easier to reuse for all of the non-theropod species. Use this new function to estimate the mass of a Sauropoda (a = 214.44, b = 1.46) that is 26 m long.
 ```{r}
+#estimating the mass (kg) of an organism in kg based on its length in meters
+get_mass_from_length_theropoda <- function(length){
+  mass <- 0.73 * length ^ 3.63
+  return(mass)
+}
 
+get_mass_from_length_theropoda(16)
+
+#new version
+get_mass_from_length <- function(length,a, b){
+  mass_ab <-length * 214.44 * 1.46
+  return(mass_ab)
+}
+
+get_mass_from_length(26)
 ```
 
 
