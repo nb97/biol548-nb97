@@ -147,6 +147,19 @@ Stego_mass <- get_mass_from_length(10.95) %>%
 ```
 
 
+Nesting functions
+```{r}
+shrub_mass <- est_shrub_mass(calc_shrub_vol(0.8, 1.6, 2.0))
+
+est_shrub_mass_dim <- function(length, width, height){
+  volume = calc_shrub_vol(length, width, height)
+  mass <- est_shrub_mass(volume)
+  return(mass)
+}
+
+est_shrub_mass_dim(0.8, 1.6, 2.0)
+
+```
 
 
 
