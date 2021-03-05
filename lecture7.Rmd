@@ -45,7 +45,7 @@ pound_to_gram(3.75)
 ```
 
 
-Exercise 2
+## Exercise 2
 In your file lecture7-exercises.R, add a comment to this function so that you know what it does.
 Use this function to print out the mass of a Spinosaurus that is 16 m long based on its reassembled skeleton.
 Create a new version of this function called get_mass_from_length() that estimates the mass of an organism in kg based on its length in meters by taking length, a, and b as parameters. This lets us pass the function all 3 values that it needs to estimate a mass as parameters, which makes it much easier to reuse for all of the non-theropod species. Use this new function to estimate the mass of a Sauropoda (a = 214.44, b = 1.46) that is 26 m long.
@@ -82,7 +82,7 @@ calc_shrub_vol(height = 2.0, length = 0.8, width = 1.6)
 ```
 
 
-# Exercise 3
+## Exercise 3
 Use this function to estimate the mass of a Sauropoda (a = 214.44, b = 1.46) that is 22 m long (by setting a and b when calling the function).
 Use this function to estimate the mass of a dinosaur from an unknown taxonomic group that is 16m long (by not setting a and b so that the default values are used).
 ```{r}
@@ -100,7 +100,59 @@ get_mass_from_length(16)
 
 #It is more useful passing them than having them fixed so they can be applied to many taxonomic groups. 
 ```
+
+
+Named vs unamed 
+```{r}
+calc_shrub_vol(length = 2.0, width = 0.8, height = 1.6)
+calc_shrub_vol(2.0, 0.8, 1.6)
 ```
+
+
+Combining functions
+```{r}
+est_shrub_mass <- function(volume){
+  mass <- 2.65 * volume^0.9
+}
+
+shrub_volume <- calc_shrub_vol(0.8, 1.6, 2.0)
+shrub_mass <- est_shrub_mass(shrub_volume)
+
+# piping 
+
+shrub_mass <- calc_shrub_vol(0.8, 1.6, 2.0) %>%
+  est_shrub_mass()
+```
+
+
+## Exercise 4
+Write a function that converts kilograms into pounds (there are 2.205 pounds in a kilogram). Use that function along with your get_mass_from_length() function from Exercise 2 to estimate the weight, in pounds, of a 12 m long Stegosaurus. In Stegosauria, a has been estimated as 10.95 and b has been estimated as 2.64.
+```{r}
+kg_to_lbs <- function(lb){
+  weight_lb <- lb / 2.205
+  return(weight_lb)
+}
+
+get_mass_from_length <- function(length, a, b){
+  mass_ab <-length * 10.95 * 2.64
+  return(mass_ab)
+}
+
+stego_equ <- get_mass_from_length(10.95)
+kg_to_lbs(stego_equ)
+
+Stego_mass <- get_mass_from_length(10.95) %>%
+  kg_to_lbs()
+
+```
+
+
+
+
+
+
+
+
 
 
 
