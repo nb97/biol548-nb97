@@ -1,0 +1,19 @@
+---
+title: "Lecture8"
+author: "Natalie Benoit"
+date: "3/9/2021"
+output: html_document
+---
+
+```{r}
+
+```
+
+
+```{r}
+
+```
+
+
+```{r}
+```
