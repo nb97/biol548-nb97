@@ -74,3 +74,43 @@ if (age_class == "sapling"){
 y
 ```
 
+
+
+Alternative conditioning 
+Often want to chose one of several options
+Can add more conditions and associated actions with else if
+```{r}
+veg_type <- "grass"
+volume <- 16.08
+if (veg_type == "tree") {
+  mass <- 2.65 * volume^0.9
+} else if (veg_type == "grass") {
+  mass <- 0.65 * volume^1.2
+}
+mass
+```
+
+
+## Excercise 3
+```{r}
+age_class <- "seedling"
+if(age_class == "seedling"){
+  y <- 5
+}
+y
+
+
+age_class = "sapling"
+if (age_class == "sapling"){
+  y <- 10
+}
+y
+
+age_class = "other"
+if (age_class == "other"){
+  y <- 0
+}
+y
+```
+
+
