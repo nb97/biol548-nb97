@@ -6,14 +6,71 @@ output: html_document
 ---
 
 ```{r}
-
+library(dplyr)
+library(tidyverse)
 ```
 
+Conditons and iterations
+Operators:
+==, !=
+<, >
+<=, >=
+%in%
 
+
+## Exercice 1
 ```{r}
+w <- 10.2
+x <- 1.3
+y <- 2.8
+z <- 17.5
+colors <- c("red", "blue", "green")
+masses <- c(45.2, 36.1, 27.8, 81.6, 42.4)
+dna1 <- "attattaggaccaca"
+dna2 <- "attattaggaacaca"
 
+#w is greater than 10
+w > 10
+color = "green"
+x > y
+masses > 40
 ```
 
 
+
+If statements 
+Conditional statements generate logical values to filter inputs.
+if statements use conditional statements to control flow of the program.
 ```{r}
+x <- 6
+if (x > 5){
+  x <- x^2
+}
+x
+
+
+x = 4
+if (x > 5){
+  x <- x^2
+}
+x
+
+veg_type <- "tree"
+volume <- 16.08
+if (veg_type == "tree") {
+  mass <- 2.65 * volume^0.9
+  }
+mass
+
 ```
+
+
+#Exercise 2
+```{r}
+age_class = "sapling"
+if (age_class == "sapling"){
+  y <- 10
+}
+y
+```
+
