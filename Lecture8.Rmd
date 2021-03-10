@@ -114,3 +114,72 @@ y
 ```
 
 
+Multiple if else & else if
+Multiple ifs check each conditional separately
+Executes code of all conditions that are TRUE
+```{r}
+x <- 5
+if (x > 2){
+  x * 2
+}
+if (x > 4){
+  x * 4
+}
+
+x <- 5
+if (x > 2){
+  x * 2
+} else if (x > 4){
+  x * 4
+}
+```
+
+
+Wrap conditions within a function 
+```{r}
+est_mass <- function(volume, veg_type){
+  if (veg_type == "tree") {
+    mass <- 2.65 * volume^0.9
+  } else if (veg_type == "grass") {
+    mass <- 0.65 * volume^1.2
+  } else {
+    print("I don't know how to convert volume to mass for that vegetation type")
+    mass <- NA
+  }
+  return(mass)
+}
+
+est_mass(1.6, "tree")
+est_mass(1.6, "grass")
+est_mass(1.6, "shrub")
+```
+
+
+## Exercise 4
+3 chunks of if else and or else (if nothing else)
+```{r}
+get_mass_from_length_by_name<-function(name, length) {
+  if (name == "Stegosauria") {
+    stego_mass <- 10.95*length^2.64
+    return(stego_mass)
+     
+  } else if (name == "Theropoda"){
+    thero_mass <- 0.73*length^3.63
+    return(thero_mass)
+    
+  } else if (name == "Sauropoda"){
+    sauro_mass <- 214.44*length^1.46
+    return(sauro_mass)
+    
+  } else {
+    na_mass <- NA*length^NA
+    return(na_mass)
+  }
+}
+
+get_mass_from_length_by_name("Stegosauria", 10)
+get_mass_from_length_by_name("Theropoda", 8)
+get_mass_from_length_by_name("Sauropoda", 12)
+get_mass_from_length_by_name("Ankylosauria", 13)
+```
+
